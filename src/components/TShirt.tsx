@@ -1,3 +1,5 @@
+import { IMAGE_WEBP_WIDTHS, withWebpVariant } from './ResponsiveImage'
+
 const SHIRTS = [1, 2, 3, 4, 5, 6, 16].map(n => `/tshirt/${n}.png`)
 
 export default function TShirt() {
@@ -29,13 +31,20 @@ export default function TShirt() {
       <div className="tshirt-grid">
         {SHIRTS.map((src, i) => (
           <div key={i} className="tshirt-item">
-            <img
-              src={src}
-              alt={`Piglet Room T-shirt ${i + 1}`}
-              loading="lazy"
-              decoding="async"
-              onError={(e) => { (e.target as HTMLImageElement).parentElement!.style.display = 'none' }}
-            />
+            <picture>
+              <source
+                type="image/webp"
+                srcSet={IMAGE_WEBP_WIDTHS.map(w => `${withWebpVariant(src, w)} ${w}w`).join(', ')}
+                sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+              />
+              <img
+                src={src}
+                alt={`Piglet Room T-shirt ${i + 1}`}
+                loading="lazy"
+                decoding="async"
+                onError={(e) => { (e.target as HTMLImageElement).closest('.tshirt-item')!.style.display = 'none' }}
+              />
+            </picture>
           </div>
         ))}
       </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { IMAGE_WEBP_WIDTHS, withWebpVariant } from './ResponsiveImage'
 
 interface HomeProps {
   setActiveTab: (tab: string) => void
@@ -26,13 +27,20 @@ export default function Home({ setActiveTab }: HomeProps) {
     <section className="home-hero">
       {SLIDES.map((src, i) => (
         <div key={i} className={`hero-slide${current === i ? ' active' : ''}`}>
-          <img
-            src={src}
-            alt={`Piglet Room ${i + 1}`}
-            loading="eager"
-            decoding="async"
-            onError={(e) => { (e.target as HTMLImageElement).parentElement!.style.display = 'none' }}
-          />
+          <picture>
+            <source
+              type="image/webp"
+              srcSet={IMAGE_WEBP_WIDTHS.map(w => `${withWebpVariant(src, w)} ${w}w`).join(', ')}
+              sizes="100vw"
+            />
+            <img
+              src={src}
+              alt={`Piglet Room ${i + 1}`}
+              loading={i === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              onError={(e) => { (e.target as HTMLImageElement).closest('.hero-slide')!.style.display = 'none' }}
+            />
+          </picture>
         </div>
       ))}
 

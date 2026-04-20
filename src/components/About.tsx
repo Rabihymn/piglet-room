@@ -1,3 +1,5 @@
+import { IMAGE_WEBP_WIDTHS, withWebpVariant } from './ResponsiveImage'
+
 export default function About() {
   return (
     <section className="page-section">
@@ -47,14 +49,21 @@ export default function About() {
         </div>
 
         <div className="about-image-stack">
-          <img
-            className="about-image-main"
-            src="/the-room/room/0.png"
-            alt="Piglet Room interior"
-            loading="eager"
-            decoding="async"
-            onError={(e) => { (e.target as HTMLImageElement).src = '/home/1.png' }}
-          />
+          <picture>
+            <source
+              type="image/webp"
+              srcSet={IMAGE_WEBP_WIDTHS.map(w => `${withWebpVariant('/the-room/room/0.png', w)} ${w}w`).join(', ')}
+              sizes="(max-width: 900px) 100vw, 45vw"
+            />
+            <img
+              className="about-image-main"
+              src="/the-room/room/0.png"
+              alt="Piglet Room interior"
+              loading="eager"
+              decoding="async"
+              onError={(e) => { (e.target as HTMLImageElement).src = '/home/1.png' }}
+            />
+          </picture>
           <img
             className="about-image-accent"
             src="/logo/pig.png"

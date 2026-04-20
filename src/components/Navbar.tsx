@@ -81,11 +81,15 @@ export default function Navbar({ activeTab, setActiveTab }: NavbarProps) {
               className={`logo-full${scrolled ? ' logo-out' : ''}`}
               src="/logo/logo%20final.png"
               alt="Piglet Room"
+              loading="eager"
+              decoding="async"
             />
             <img
               className={`logo-pig${scrolled ? ' logo-in' : ''}`}
               src="/logo/pig.png"
               alt="Piglet Room"
+              loading="eager"
+              decoding="async"
             />
           </div>
         </div>

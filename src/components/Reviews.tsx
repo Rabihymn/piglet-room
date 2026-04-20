@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import ResponsiveImage from './ResponsiveImage'
+import ResponsiveImage, { IMAGE_WEBP_WIDTHS, withWebpVariant } from './ResponsiveImage'
 
 interface Review {
   src: string
@@ -66,7 +66,14 @@ export default function Reviews() {
       {lightbox && (
         <div className="lightbox" onClick={() => setLightbox(null)}>
           <button className="lightbox-close" onClick={() => setLightbox(null)}>×</button>
-          <img src={lightbox} alt="Review" onClick={e => e.stopPropagation()} />
+          <picture onClick={e => e.stopPropagation()}>
+            <source
+              type="image/webp"
+              srcSet={IMAGE_WEBP_WIDTHS.map(w => `${withWebpVariant(lightbox, w)} ${w}w`).join(', ')}
+              sizes="min(1600px, 90vw)"
+            />
+            <img src={lightbox} alt="Review" />
+          </picture>
         </div>
       )}
     </section>
