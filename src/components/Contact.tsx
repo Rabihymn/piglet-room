@@ -28,6 +28,8 @@ export default function Contact() {
             <img
               src="/home/1.png"
               alt="Piglet Room"
+              loading="eager"
+              decoding="async"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           )}

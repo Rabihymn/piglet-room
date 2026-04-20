@@ -51,12 +51,16 @@ export default function About() {
             className="about-image-main"
             src="/the-room/room/0.png"
             alt="Piglet Room interior"
+            loading="eager"
+            decoding="async"
             onError={(e) => { (e.target as HTMLImageElement).src = '/home/1.png' }}
           />
           <img
             className="about-image-accent"
             src="/logo/pig.png"
             alt="Piglet Room"
+            loading="lazy"
+            decoding="async"
             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
           />
         </div>

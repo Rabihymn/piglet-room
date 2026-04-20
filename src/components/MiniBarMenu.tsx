@@ -13,11 +13,15 @@ export default function MiniBarMenu() {
           <img
             src="/minibar-menu/3.png"
             alt="Minibar"
+            loading="lazy"
+            decoding="async"
             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
           />
           <img
             src="/minibar-menu/4.png"
             alt="Minibar menu"
+            loading="lazy"
+            decoding="async"
             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
           />
         </div>

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import ResponsiveImage from './ResponsiveImage'
 
 interface Review {
   src: string
@@ -38,12 +39,15 @@ export default function Reviews() {
             key={i}
             className={`review-card${review.fullWidth ? ' review-card--full' : ''}`}
           >
-            <img
+            <ResponsiveImage
               src={review.src}
               alt={`Review ${i + 1}`}
+              loading="lazy"
+              decoding="async"
+              onClick={() => setLightbox(review.src)}
               style={{ cursor: 'zoom-in' }}
               onError={(e) => {
-                const img = e.target as HTMLImageElement
+                const img = e.currentTarget
                 if (!img.dataset.tried) {
                   img.dataset.tried = '1'
                   img.src = review.fallback
@@ -51,7 +55,6 @@ export default function Reviews() {
                   img.style.display = 'none'
                 }
               }}
-              onClick={() => setLightbox(review.src)}
             />
             <div className="review-text">
               <p className="review-author">— {review.author}</p>

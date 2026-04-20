@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { CSSProperties } from 'react'
+import ResponsiveImage from './ResponsiveImage'
 
 interface SubTab {
   id: string
@@ -118,6 +119,8 @@ export default function TheRoom() {
               className="room-floor-plan-img"
               src={PLAN_SRC}
               alt="Piglet Room general layout floor plan"
+              loading="eager"
+              decoding="async"
             />
             {PLAN_HOTSPOTS.map(zone => (
               <button
@@ -148,10 +151,14 @@ export default function TheRoom() {
                   className="room-gallery-item"
                   onClick={() => setLightbox(src)}
                 >
-                  <img
+                  <ResponsiveImage
                     src={src}
                     alt={`${activeSubTab} ${i + 1}`}
-                    onError={(e) => { (e.target as HTMLImageElement).parentElement!.style.display = 'none' }}
+                    loading="lazy"
+                    decoding="async"
+                    onError={(e) => {
+                      ;(e.currentTarget.closest('.room-gallery-item') as HTMLElement | null)?.style.setProperty('display', 'none')
+                    }}
                   />
                 </div>
               ))}

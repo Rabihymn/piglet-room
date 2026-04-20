@@ -16,6 +16,8 @@ export default function TShirt() {
             <img
               src={src}
               alt={`Piglet Room T-shirt ${i + 1}`}
+              loading="lazy"
+              decoding="async"
               onError={(e) => { (e.target as HTMLImageElement).parentElement!.style.display = 'none' }}
             />
           </div>

@@ -29,6 +29,8 @@ export default function Home({ setActiveTab }: HomeProps) {
           <img
             src={src}
             alt={`Piglet Room ${i + 1}`}
+            loading="eager"
+            decoding="async"
             onError={(e) => { (e.target as HTMLImageElement).parentElement!.style.display = 'none' }}
           />
         </div>
