@@ -35,7 +35,7 @@ export default function About() {
             </div>
             <div className="about-detail">
               <p className="about-detail-label">Size</p>
-              <p className="about-detail-value">38 m² Studio<br />+ 29 m² Seasonal Terrace</p>
+              <p className="about-detail-value">38 m² Studio<br />+ 29 m² Seasonal Communal Terrace</p>
             </div>
             <div className="about-detail">
               <p className="about-detail-label">Capacity</p>
@@ -64,14 +64,6 @@ export default function About() {
               onError={(e) => { (e.target as HTMLImageElement).src = '/home/1.png' }}
             />
           </picture>
-          <img
-            className="about-image-accent"
-            src="/logo/pig.png"
-            alt="Piglet Room"
-            loading="lazy"
-            decoding="async"
-            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-          />
         </div>
       </div>
     </section>

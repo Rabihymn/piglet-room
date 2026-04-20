@@ -36,9 +36,6 @@ const GALLERIES: Record<string, string[]> = {
 
   location: [
     '/the-room/location/22.png',
-    '/the-room/location/Ginette-Concept-Store-by-Raed-Abillama-Architects-Beirut-Lebanon-09.jpg',
-    '/the-room/location/ChatGPT%20Image%20Mar%207,%202026%20at%2005_04_05%20PM.png',
-    '/the-room/location/image.jpg',
   ],
 
   art: ['3.png', '10.png'].map(f => `/the-room/Art/${f}`),
@@ -150,7 +147,7 @@ const PLAN_HOTSPOTS: {
   { id: 'terrace', label: 'Communal terrace', n: 4, style: { left: '21%', top: '42%', width: '27%', height: '44%' } },
 ]
 
-const PLAN_SRC = '/the-room/room/General%20Layout%20plan.jpeg'
+const PLAN_SRC = '/the-room/room/plan.jpg'
 
 const AMENITIES = [
   'En-suite bathroom with a shower',
@@ -366,7 +363,7 @@ export default function TheRoom() {
               </em>
             </p>
             <p className="room-description">
-              <em>✨ A blend of practicality and little luxuries that make all the difference.</em>
+              <em>A blend of practicality and little luxuries that make all the difference.</em>
             </p>
           </div>
         </div>
