@@ -38,7 +38,7 @@ export default function Contact() {
         <div>
           <p className="contact-description">
             We're always happy to hear from you. Whether you have a question about your stay,
-            want to share a memory, or just want to say hello — find us on Instagram.
+            want to share a memory, or just want to say hello, find us on Instagram.
           </p>
 
           <a

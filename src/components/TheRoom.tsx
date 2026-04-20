@@ -14,6 +14,7 @@ const SUB_TABS: SubTab[] = [
   { id: 'kitchen', label: 'The Open Kitchen' },
   { id: 'terrace', label: 'Terrace' },
   { id: 'location', label: 'Location' },
+  { id: 'art', label: 'Art' },
 ]
 
 const GALLERIES: Record<string, string[]> = {
@@ -39,6 +40,101 @@ const GALLERIES: Record<string, string[]> = {
     '/the-room/location/Ginette-Concept-Store-by-Raed-Abillama-Architects-Beirut-Lebanon-09.jpg',
     '/the-room/location/ChatGPT%20Image%20Mar%207,%202026%20at%2005_04_05%20PM.png',
   ],
+
+  art: ['3.png', '10.png'].map(f => `/the-room/Art/${f}`),
+}
+
+type ArtHoverCopy = {
+  title: string
+  sectionTitle: string
+  paragraphs: [string, string, string]
+  quote: string
+  tagline: string
+  footerTitle: string
+  footerSubtitle: string
+  footerLines?: string[]
+  footerLink?: { href: string; label: string }
+}
+
+/** Per-image hover copy in the Art tab. Add or edit keys to match `GALLERIES.art` paths. */
+const ART_HOVER_BY_SRC: Record<string, ArtHoverCopy> = {
+  '/the-room/Art/3.png': {
+    title: 'The Drip King',
+    sectionTitle: 'About this Artwork',
+    paragraphs: [
+      'The artwork merges structure with emotion, creating a figure that is both carefully constructed and full of life. Geometric forms and precise composition bring a sense of order, while beneath them, movement and energy flow. It explores identity, showing how memories, experiences, and emotions come together as a whole.',
+      'The influence of Cubism is evident in the balance of abstraction and structure, where deconstructed form remains deeply expressive. At its core, the artwork honors storytelling and human connection, with bold color and strong shape drawing the eye, while subtle gestures and expression reveal shared struggles and triumphs.',
+      'The artwork balances precision with fluidity, crafting a visual narrative that feels both personal and monumental, inviting the viewer into a world where form and feeling merge seamlessly.',
+    ],
+    quote: 'Creation begins with breaking down what came before.',
+    tagline: 'Echoes of Strength',
+    footerTitle: 'The Drip Queen',
+    footerSubtitle: 'Echoes of Strength',
+    footerLines: ['Oil on Linen', '190 × 160 cm'],
+    footerLink: { href: 'https://www.arteahead.com', label: 'www.arteahead.com' },
+  },
+  '/the-room/Art/10.png': {
+    title: 'Mr. Psyche',
+    sectionTitle: 'About this Artwork',
+    paragraphs: [
+      'Inspired by geometric forms, the artwork blends structure with emotion, creating a figure that feels both abstract and deeply human. Sharp lines, bold contrast, and fragmented shapes give the work a sense of movement and depth, capturing a moment that feels both dynamic and still.',
+      'Balancing rigid form with expressive energy, an everyday scene is transformed into a striking composition. The play of light and shadow, along with textured surfaces, adds mood and intensity, turning the piece into a visual narrative.',
+      'With a modernist approach, the artwork reduces reality to essential shape, where abstraction and figuration merge. The result is a work that feels both structured and alive—a portrait of life shaped by time, form, and emotion.',
+    ],
+    quote: 'Cubism reshapes how we see, not what we see.',
+    tagline: 'Angles of Emotion',
+    footerTitle: 'Mr. Psyche',
+    footerSubtitle: 'Angles of Emotion',
+    footerLines: ['Oil on Linen', '160 × 130 cm'],
+    footerLink: { href: 'https://www.arteahead.com', label: 'www.arteahead.com' },
+  },
+}
+
+function ArtHoverOverlay({ copy }: { copy: ArtHoverCopy }) {
+  return (
+    <div
+      className="art-hover-overlay"
+      onClick={e => e.stopPropagation()}
+      onPointerDown={e => e.stopPropagation()}
+      role="note"
+    >
+      <p className="art-hover-section">{copy.sectionTitle}</p>
+      <div className="art-hover-body-columns">
+        {copy.paragraphs.map((text, idx) => (
+          <p key={idx} className="art-hover-body">
+            {text}
+          </p>
+        ))}
+      </div>
+      <p className="art-hover-quote">&ldquo;{copy.quote}&rdquo;</p>
+      <p className="art-hover-tagline">{copy.tagline}</p>
+      <p className="art-hover-footer">
+        <strong>{copy.footerTitle}</strong>
+        <br />
+        <em>{copy.footerSubtitle}</em>
+        {copy.footerLines?.map((line, i) => (
+          <span key={i}>
+            <br />
+            {line}
+          </span>
+        ))}
+        {copy.footerLink ? (
+          <>
+            <br />
+            <a
+              href={copy.footerLink.href}
+              className="art-hover-footer-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={e => e.stopPropagation()}
+            >
+              {copy.footerLink.label}
+            </a>
+          </>
+        ) : null}
+      </p>
+    </div>
+  )
 }
 
 /** Percent positions over the floor plan image — tune if your JPEG framing differs. */
@@ -143,27 +239,32 @@ export default function TheRoom() {
           <div className="room-gallery-anchor" />
           {images.length > 0 ? (
             <div
-              className={`room-gallery${activeSubTab === 'the-room' || activeSubTab === 'bathroom' || activeSubTab === 'kitchen' || activeSubTab === 'terrace' || activeSubTab === 'location' ? ' room-gallery--contain' : ''}${activeSubTab === 'the-room' || activeSubTab === 'location' ? ' room-gallery--contain-hero' : ''}`}
+              className={`room-gallery${activeSubTab === 'the-room' || activeSubTab === 'bathroom' || activeSubTab === 'kitchen' || activeSubTab === 'terrace' || activeSubTab === 'location' || activeSubTab === 'art' ? ' room-gallery--contain' : ''}${activeSubTab === 'the-room' || activeSubTab === 'location' ? ' room-gallery--contain-hero' : ''}`}
             >
-              {images.map((src, i) => (
-                <div
-                  key={`${activeSubTab}-${i}`}
-                  className="room-gallery-item"
-                  onClick={() => setLightbox(src)}
-                >
-                  <ResponsiveImage
-                    src={src}
-                    alt={`${activeSubTab} ${i + 1}`}
-                    loading="lazy"
-                    decoding="async"
-                    onError={(e) => {
-                      ;(e.currentTarget.closest('.room-gallery-item') as HTMLElement | null)?.style.setProperty('display', 'none')
-                    }}
-                  />
-                </div>
-              ))}
+              {images.map((src, i) => {
+                const artHover = activeSubTab === 'art' ? ART_HOVER_BY_SRC[src] : undefined
+                return (
+                  <div
+                    key={`${activeSubTab}-${i}`}
+                    className={`room-gallery-item${artHover ? ' room-gallery-item--art' : ''}`}
+                    tabIndex={artHover ? 0 : undefined}
+                    onClick={() => setLightbox(src)}
+                  >
+                    <ResponsiveImage
+                      src={src}
+                      alt={artHover ? `${artHover.title} — artwork` : `${activeSubTab} ${i + 1}`}
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => {
+                        ;(e.currentTarget.closest('.room-gallery-item') as HTMLElement | null)?.style.setProperty('display', 'none')
+                      }}
+                    />
+                    {artHover ? <ArtHoverOverlay copy={artHover} /> : null}
+                  </div>
+                )
+              })}
             </div>
-          ) : activeSubTab !== 'terrace' ? (
+          ) : activeSubTab !== 'terrace' && activeSubTab !== 'art' ? (
             <p className="room-gallery-empty">
               No photos are available in this gallery yet.
             </p>
@@ -282,6 +383,32 @@ export default function TheRoom() {
               Located on Gouraud Street, Gemmayze, your cozy stay puts the best of the neighborhood
               within reach.
             </p>
+          </div>
+        </div>
+      )}
+
+      {activeSubTab === 'art' && (
+        <div className="room-tab-copy">
+          <div className="room-description-stack">
+            <p className="room-description">
+              There&apos;s a moment when the details begin to reveal themselves. A piece on the wall
+              catches your eye. Later, it feels different as the light shifts.
+            </p>
+            <p className="room-description">
+              The artworks in Piglet Room are part of the stay, not just the space. Curated with
+              Arte Ahead, they quietly shape the atmosphere.
+            </p>
+            <p className="room-description">
+              You might pause a little longer. Or notice something new the second time.
+            </p>
+            <p className="room-description">
+              A small detail, but one that stays with you.
+            </p>
+            {images.length === 0 && (
+              <p className="room-description">
+                <em>Gallery photos will appear above once they are added.</em>
+              </p>
+            )}
           </div>
         </div>
       )}

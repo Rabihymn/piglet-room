@@ -2,12 +2,28 @@ const SHIRTS = [1, 2, 3, 4, 5, 6, 16].map(n => `/tshirt/${n}.png`)
 
 export default function TShirt() {
   return (
-    <section className="page-section">
+    <section className="tshirt-section">
       <div className="page-header">
-        <p className="section-label">Merchandise</p>
-        <h2 className="section-title">
-          The Piglet<br /><em>Room Tee.</em>
-        </h2>
+      </div>
+
+      <div className="tshirt-info">
+        <p className="tshirt-lead">Piglet Room Tee</p>
+        <p className="tshirt-body">A small part of your Piglet Room experience.</p>
+        <p className="tshirt-body">
+          Wear it, capture your moment, and tag us{' '}
+          <a
+            href="https://www.instagram.com/pigletroom_/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="tshirt-handle"
+          >
+            @pigletroom_
+          </a>
+        </p>
+        <p className="tshirt-body">
+          Just something to make your stay feel even more special.
+        </p>
+        <p className="tshirt-hashtag ">#Moments in the Piglet Room  tee  🤍</p>
       </div>
 
       <div className="tshirt-grid">
@@ -22,24 +38,6 @@ export default function TShirt() {
             />
           </div>
         ))}
-      </div>
-
-      <div className="tshirt-info">
-        <p className="tshirt-description">
-          "A small part of your Piglet Room experience."
-        </p>
-        <p className="tshirt-body">
-          Wear it, capture your moment, and tag us.
-          Just something to make your stay feel even more special.
-        </p>
-        <a
-          href="https://www.instagram.com/pigletroom_/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="tshirt-handle"
-        >
-          @pigletroom_
-        </a>
       </div>
     </section>
   )
