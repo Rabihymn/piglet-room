@@ -1211,6 +1211,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+.lightbox-picture {
+  display: block;
+  margin: 0 auto;
+  cursor: default;
+}
+
 .lightbox img {
   max-width: 90vw;
   max-height: 90vh;

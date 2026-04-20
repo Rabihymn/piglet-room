@@ -13,10 +13,11 @@ type ResponsiveImageProps = {
   style?: CSSProperties
 }
 
-const DEFAULT_WIDTHS = [480, 768, 1200, 1600]
+/** Widths emitted by `scripts/optimize-images.mjs` — used for `<picture>` WebP `srcset`. */
+export const IMAGE_WEBP_WIDTHS = [480, 768, 1200, 1600] as const
 
-function withWebpVariant(src: string, width: number) {
-  // `/foo/bar.png` -> `/foo/bar.w768.webp`
+/** `/foo/bar.png` → `/foo/bar.w768.webp` */
+export function withWebpVariant(src: string, width: number) {
   return src.replace(/\.(png|jpe?g)$/i, `.w${width}.webp`)
 }
 
@@ -31,9 +32,7 @@ export default function ResponsiveImage({
   onError,
   style,
 }: ResponsiveImageProps) {
-  const webpSrcSet = DEFAULT_WIDTHS
-    .map(w => `${withWebpVariant(src, w)} ${w}w`)
-    .join(', ')
+  const webpSrcSet = IMAGE_WEBP_WIDTHS.map(w => `${withWebpVariant(src, w)} ${w}w`).join(', ')
 
   return (
     <picture style={{ display: 'block' }}>

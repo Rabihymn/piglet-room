@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { CSSProperties } from 'react'
-import ResponsiveImage from './ResponsiveImage'
+import ResponsiveImage, { IMAGE_WEBP_WIDTHS, withWebpVariant } from './ResponsiveImage'
 
 interface SubTab {
   id: string
@@ -24,7 +24,7 @@ const GALLERIES: Record<string, string[]> = {
     '12.png', '14..png', '15.png', '16.png', '17..png','2.png', '8.png',
   ].map(f => `/the-room/room/${f}`),
 
-  bathroom: ['6.png', '7.png', '8.png', '9.png', '10.png'].map(
+  bathroom: ['6.png', '7.png', '8.png', '9.png'].map(
     f => `/the-room/bathroom/${f}`
   ),
 
@@ -439,7 +439,14 @@ export default function TheRoom() {
       {lightbox && (
         <div className="lightbox" onClick={() => setLightbox(null)}>
           <button type="button" className="lightbox-close" onClick={() => setLightbox(null)}>×</button>
-          <img src={lightbox} alt="Room detail" onClick={e => e.stopPropagation()} />
+          <picture className="lightbox-picture" onClick={e => e.stopPropagation()}>
+            <source
+              type="image/webp"
+              srcSet={IMAGE_WEBP_WIDTHS.map(w => `${withWebpVariant(lightbox, w)} ${w}w`).join(', ')}
+              sizes="min(1600px, 90vw)"
+            />
+            <img src={lightbox} alt="Room detail" />
+          </picture>
         </div>
       )}
     </section>
