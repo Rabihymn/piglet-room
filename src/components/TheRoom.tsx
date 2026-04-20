@@ -28,7 +28,7 @@ const GALLERIES: Record<string, string[]> = {
     f => `/the-room/bathroom/${f}`
   ),
 
-  kitchen: ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png'].map(
+  kitchen: ['1.png', '3.png', '8.png', '5.png', '7.png'].map(
     f => `/the-room/kitchen/${f}`
   ),
 
@@ -36,9 +36,9 @@ const GALLERIES: Record<string, string[]> = {
 
   location: [
     '/the-room/location/22.png',
-    '/the-room/location/image.jpg',
     '/the-room/location/Ginette-Concept-Store-by-Raed-Abillama-Architects-Beirut-Lebanon-09.jpg',
     '/the-room/location/ChatGPT%20Image%20Mar%207,%202026%20at%2005_04_05%20PM.png',
+    '/the-room/location/image.jpg',
   ],
 
   art: ['3.png', '10.png'].map(f => `/the-room/Art/${f}`),
