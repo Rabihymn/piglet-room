@@ -24,7 +24,7 @@ const GALLERIES: Record<string, string[]> = {
     '12.png', '14..png', '15.png', '16.png', '17..png','2.png', '8.png',
   ].map(f => `/the-room/room/${f}`),
 
-  bathroom: ['6.png', '7.png', '8.png', '9.png'].map(
+  bathroom: ['6.png', '7.png', '8.png', '10.png'].map(
     f => `/the-room/bathroom/${f}`
   ),
 
