@@ -1,5 +1,8 @@
 import { useState } from 'react'
 
+const CONTACT_VIDEO_URL =
+  'https://jruldtycdsgtwp12.public.blob.vercel-storage.com/10678048-uhd_4096_2160_25fps.mp4'
+
 export default function Contact() {
   const [videoFailed, setVideoFailed] = useState(false)
 
@@ -17,7 +20,7 @@ export default function Contact() {
           {!videoFailed ? (
             <video autoPlay muted loop playsInline onError={() => setVideoFailed(true)}>
               <source
-                src="/contact-us/10678042-uhd_4096_2160_25fps.mp4"
+                src={CONTACT_VIDEO_URL}
                 type="video/mp4"
               />
             </video>
