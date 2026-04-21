@@ -392,8 +392,16 @@ export default function TheRoom() {
               catches your eye. Later, it feels different as the light shifts.
             </p>
             <p className="room-description">
-              The artworks in Piglet Room are part of the stay, not just the space. Curated with
-              Arte Ahead, they quietly shape the atmosphere.
+              The artworks in Piglet Room are part of the stay, not just the space. Curated with{' '}
+              <a
+                href="https://www.arteahead.com"
+                className="room-description-link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Arte Ahead
+              </a>
+              , they quietly shape the atmosphere.
             </p>
             <p className="room-description">
               You might pause a little longer. Or notice something new the second time.

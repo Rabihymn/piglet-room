@@ -842,6 +842,16 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   margin-bottom: 0;
 }
 
+a.room-description-link {
+  color: var(--warm);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+a.room-description-link:hover {
+  color: var(--brown);
+}
+
 .room-description-stack {
   margin-bottom: 36px;
 }
