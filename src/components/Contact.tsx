@@ -63,6 +63,9 @@ export default function Contact() {
           >
             @pigletroom_
           </a>
+          <a className="contact-location-value room-description-link" href="mailto:hello@pigletroom.com">
+              hello@pigletroom.com
+            </a>
 
           <div className="contact-location">
             <p className="contact-location-label">Address</p>
@@ -78,13 +81,6 @@ export default function Contact() {
               className="room-description-link"
             >
               Open in Google Maps
-            </a>
-          </div>
-
-          <div className="contact-location">
-            <p className="contact-location-label">Email</p>
-            <a className="contact-location-value room-description-link" href="mailto:hello@pigletroom.com">
-              hello@pigletroom.com
             </a>
           </div>
 

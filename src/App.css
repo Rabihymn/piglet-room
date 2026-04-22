@@ -1192,7 +1192,7 @@ a.room-description-link:hover {
   font-size: 34px;
   font-weight: 300;
   color: var(--warm);
-  margin-bottom: 44px;
+  margin-bottom: 10px;
   transition: opacity 0.2s ease;
 }
 .contact-handle:hover { opacity: 0.75; }
