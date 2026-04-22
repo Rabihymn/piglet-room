@@ -43,7 +43,16 @@ export default function About() {
             </div>
             <div className="about-detail">
               <p className="about-detail-label">Follow</p>
-              <p className="about-detail-value">@pigletroom_</p>
+              <p className="about-detail-value">
+                <a
+                  href="https://www.instagram.com/pigletroom_/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="room-description-link"
+                >
+                  @pigletroom_
+                </a>
+              </p>
             </div>
           </div>
         </div>

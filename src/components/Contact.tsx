@@ -71,6 +71,21 @@ export default function Contact() {
               Gemmayze, Beirut<br />
               Lebanon
             </p>
+            <a
+              href="https://maps.app.goo.gl/szsDsXVVXKpTPkZo9"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="room-description-link"
+            >
+              Open in Google Maps
+            </a>
+          </div>
+
+          <div className="contact-location">
+            <p className="contact-location-label">Email</p>
+            <a className="contact-location-value room-description-link" href="mailto:hello@pigletroom.com">
+              hello@pigletroom.com
+            </a>
           </div>
 
           <a

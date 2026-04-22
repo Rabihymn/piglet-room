@@ -1,6 +1,6 @@
 import { IMAGE_WEBP_WIDTHS, withWebpVariant } from './ResponsiveImage'
 
-const SHIRTS = [1, 2, 3, 4, 5, 6, 16].map(n => `/tshirt/${n}.png`)
+const SHIRTS = [1, 2, 3, 4, 5, 16, 6].map(n => `/tshirt/${n}.png`)
 
 export default function TShirt() {
   return (

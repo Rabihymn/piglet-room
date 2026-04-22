@@ -59,7 +59,7 @@ export default function Home({ setActiveTab }: HomeProps) {
             href="https://www.airbnb.com/hosting/listings"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary"
+            className="btn-dark"
           >
             Book Now
           </a>

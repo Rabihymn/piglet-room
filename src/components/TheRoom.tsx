@@ -64,7 +64,7 @@ const ART_HOVER_BY_SRC: Record<string, ArtHoverCopy> = {
       'The artwork balances precision with fluidity, crafting a visual narrative that feels both personal and monumental, inviting the viewer into a world where form and feeling merge seamlessly.',
     ],
     quote: 'Creation begins with breaking down what came before.',
-    tagline: 'Echoes of Strength',
+    tagline: '',
     footerTitle: 'The Drip Queen',
     footerSubtitle: 'Echoes of Strength',
     footerLines: ['Oil on Linen', '190 × 160 cm'],
@@ -79,7 +79,7 @@ const ART_HOVER_BY_SRC: Record<string, ArtHoverCopy> = {
       'With a modernist approach, the artwork reduces reality to essential shape, where abstraction and figuration merge. The result is a work that feels both structured and alive—a portrait of life shaped by time, form, and emotion.',
     ],
     quote: 'Cubism reshapes how we see, not what we see.',
-    tagline: 'Angles of Emotion',
+    tagline: '',
     footerTitle: 'Mr. Psyche',
     footerSubtitle: 'Angles of Emotion',
     footerLines: ['Oil on Linen', '160 × 130 cm'],
@@ -241,22 +241,38 @@ export default function TheRoom() {
               {images.map((src, i) => {
                 const artHover = activeSubTab === 'art' ? ART_HOVER_BY_SRC[src] : undefined
                 return (
-                  <div
-                    key={`${activeSubTab}-${i}`}
-                    className={`room-gallery-item${artHover ? ' room-gallery-item--art' : ''}`}
-                    tabIndex={artHover ? 0 : undefined}
-                    onClick={() => setLightbox(src)}
-                  >
-                    <ResponsiveImage
-                      src={src}
-                      alt={artHover ? `${artHover.title} — artwork` : `${activeSubTab} ${i + 1}`}
-                      loading="lazy"
-                      decoding="async"
-                      onError={(e) => {
-                        ;(e.currentTarget.closest('.room-gallery-item') as HTMLElement | null)?.style.setProperty('display', 'none')
-                      }}
-                    />
-                    {artHover ? <ArtHoverOverlay copy={artHover} /> : null}
+                  <div key={`${activeSubTab}-${i}`} className={artHover ? 'art-card' : undefined}>
+                    <div
+                      className={`room-gallery-item${artHover ? ' room-gallery-item--art' : ''}`}
+                      tabIndex={artHover ? 0 : undefined}
+                      onClick={() => setLightbox(src)}
+                    >
+                      <ResponsiveImage
+                        src={src}
+                        alt={artHover ? `${artHover.title} — artwork` : `${activeSubTab} ${i + 1}`}
+                        loading="lazy"
+                        decoding="async"
+                        onError={(e) => {
+                          ;(e.currentTarget.closest('.room-gallery-item') as HTMLElement | null)?.style.setProperty('display', 'none')
+                        }}
+                      />
+                      {artHover ? <ArtHoverOverlay copy={artHover} /> : null}
+                    </div>
+
+                    {artHover ? (
+                      <div className="art-buy-row">
+                        <a
+                          href="https://www.arteahead.com"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-dark btn-small"
+                          onClick={e => e.stopPropagation()}
+                          onPointerDown={e => e.stopPropagation()}
+                        >
+                          Buy Now
+                        </a>
+                      </div>
+                    ) : null}
                   </div>
                 )
               })}
@@ -387,6 +403,15 @@ export default function TheRoom() {
       {activeSubTab === 'art' && (
         <div className="room-tab-copy">
           <div className="room-description-stack">
+            <a
+              href="https://www.arteahead.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-dark"
+              style={{ marginBottom: '22px' }}
+            >
+              Buy Now
+            </a>
             <p className="room-description">
               There&apos;s a moment when the details begin to reveal themselves. A piece on the wall
               catches your eye. Later, it feels different as the light shifts.
@@ -423,7 +448,7 @@ export default function TheRoom() {
           <div className="room-description-stack">
             <h3 className="room-tab-title">Communal terrace · 29&nbsp;m² · May–September</h3>
             <p className="room-description">
-              Step into a shared outdoor terrace for guests in the building—an open-air counterpoint
+              Step into a communal outdoor terrace for guests in the building, an open-air counterpoint
               to the studio&apos;s quiet interior. There&apos;s space to settle with a morning coffee,
               read in the shade, or share a bottle as the evening cools over Gemmayze.
             </p>
