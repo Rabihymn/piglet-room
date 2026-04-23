@@ -28,7 +28,7 @@ const GALLERIES: Record<string, string[]> = {
     f => `/the-room/bathroom/${f}`
   ),
 
-  kitchen: ['1.png', '3.png', '8.png', '5.png', '7.png'].map(
+  kitchen: ['1.png', '3.png', '8.png', '5.png'].map(
     f => `/the-room/kitchen/${f}`
   ),
 
@@ -187,7 +187,7 @@ export default function TheRoom() {
   return (
     <section className="page-section">
       <div className="page-header">
-        <p className="section-label">38 m² · Gouraud Street, Gemmayze</p>
+        <p className="section-label">38 m² Studio + 29 m² Seasonal Communal Terrace · Gouraud Street, Gemmayze</p>
         <h2 className="section-title">The<br /><em>Space.</em></h2>
       </div>
 
@@ -240,39 +240,61 @@ export default function TheRoom() {
             >
               {images.map((src, i) => {
                 const artHover = activeSubTab === 'art' ? ART_HOVER_BY_SRC[src] : undefined
-                return (
-                  <div key={`${activeSubTab}-${i}`} className={artHover ? 'art-card' : undefined}>
+                if (!artHover) {
+                  return (
                     <div
-                      className={`room-gallery-item${artHover ? ' room-gallery-item--art' : ''}`}
-                      tabIndex={artHover ? 0 : undefined}
+                      key={`${activeSubTab}-${i}`}
+                      className="room-gallery-item"
                       onClick={() => setLightbox(src)}
                     >
                       <ResponsiveImage
                         src={src}
-                        alt={artHover ? `${artHover.title} — artwork` : `${activeSubTab} ${i + 1}`}
+                        alt={`${activeSubTab} ${i + 1}`}
                         loading="lazy"
                         decoding="async"
                         onError={(e) => {
                           ;(e.currentTarget.closest('.room-gallery-item') as HTMLElement | null)?.style.setProperty('display', 'none')
                         }}
                       />
-                      {artHover ? <ArtHoverOverlay copy={artHover} /> : null}
+                    </div>
+                  )
+                }
+
+                const buyHref =
+                  src === '/the-room/Art/3.png' ? 'https://arteahead.com/collections/artworks/products/the-drip-king-1?_pos=10&_fid=e12e6ade7&_ss=c'
+                    : src === '/the-room/Art/10.png' ? 'https://arteahead.com/collections/artworks/products/mr-psyche-1?_pos=13&_fid=e12e6ade7&_ss=c'
+                      : 'https://www.arteahead.com'
+                return (
+                  <div key={`${activeSubTab}-${i}`} className="art-card">
+                    <div
+                      className="room-gallery-item room-gallery-item--art"
+                      tabIndex={0}
+                      onClick={() => setLightbox(src)}
+                    >
+                      <ResponsiveImage
+                        src={src}
+                        alt={`${artHover.title} — artwork`}
+                        loading="lazy"
+                        decoding="async"
+                        onError={(e) => {
+                          ;(e.currentTarget.closest('.room-gallery-item') as HTMLElement | null)?.style.setProperty('display', 'none')
+                        }}
+                      />
+                      <ArtHoverOverlay copy={artHover} />
                     </div>
 
-                    {artHover ? (
-                      <div className="art-buy-row">
-                        <a
-                          href="https://www.arteahead.com"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn-dark btn-small"
-                          onClick={e => e.stopPropagation()}
-                          onPointerDown={e => e.stopPropagation()}
-                        >
-                          Buy Now
-                        </a>
-                      </div>
-                    ) : null}
+                    <div className="art-buy-row">
+                      <a
+                        href={buyHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-dark btn-small"
+                        onClick={e => e.stopPropagation()}
+                        onPointerDown={e => e.stopPropagation()}
+                      >
+                        Buy Now
+                      </a>
+                    </div>
                   </div>
                 )
               })}
@@ -389,12 +411,7 @@ export default function TheRoom() {
         <div className="room-tab-copy">
           <div className="room-description-stack">
             <p className="room-description">
-              Imagine stepping out of your room and grabbing your morning coffee at Ginette Coffee Shop,
-              right in the same building!
-            </p>
-            <p className="room-description">
-              Located on Gouraud Street, Gemmayze, your cozy stay puts the best of the neighborhood
-              within reach.
+            Imagine stepping out of your room and grabbing your morning coffee at Ginette Coffee Shop, right in the same building! Located on Gouraud Street in Gemmayze, your cozy stay puts the best of the neighborhood within reach. Just 4 minutes away by car from Downtown Beirut and Saifi Village, you’re perfectly positioned to explore the city with ease.
             </p>
           </div>
         </div>
@@ -403,15 +420,6 @@ export default function TheRoom() {
       {activeSubTab === 'art' && (
         <div className="room-tab-copy">
           <div className="room-description-stack">
-            <a
-              href="https://www.arteahead.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-dark"
-              style={{ marginBottom: '22px' }}
-            >
-              Buy Now
-            </a>
             <p className="room-description">
               There&apos;s a moment when the details begin to reveal themselves. A piece on the wall
               catches your eye. Later, it feels different as the light shifts.

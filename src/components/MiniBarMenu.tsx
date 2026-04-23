@@ -43,7 +43,7 @@ export default function MiniBarMenu() {
           <p className="minibar-signature">Piglet Room Team Xx</p>
           <a
             className="btn-dark"
-            href="/minibar-menu/piglet-room-minibar-menu.pdf"
+            href="/minibar-menu/piglet-room-minibar-menu.pdf?v=2"
             target="_blank"
             rel="noopener noreferrer"
           >

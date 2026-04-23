@@ -389,6 +389,111 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   border-radius: 3px;
 }
 
+/* ─── NEWSLETTER ────────────────────────────────────────────── */
+.newsletter-section {
+  background: var(--cream);
+  padding: 110px 64px;
+  border-top: 1px solid rgba(184, 147, 106, 0.18);
+}
+
+.newsletter-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.newsletter-title {
+  font-family: var(--font-serif);
+  font-size: clamp(38px, 5vw, 64px);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--charcoal);
+  margin: 14px 0 24px;
+}
+
+.newsletter-title em {
+  font-style: italic;
+  color: var(--warm);
+}
+
+.newsletter-subtitle {
+  font-family: var(--font-serif);
+  font-size: 19px;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.65;
+  color: var(--gray-text);
+  margin-bottom: 40px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 12px;
+  max-width: 520px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.newsletter-input {
+  flex: 1 1 260px;
+  min-width: 0;
+  padding: 16px 20px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--charcoal);
+  background: var(--white);
+  border: 1px solid var(--gray);
+  border-radius: 2px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+.newsletter-input::placeholder {
+  color: var(--gray-text);
+}
+
+.newsletter-input:focus {
+  border-color: var(--warm);
+  box-shadow: 0 0 0 3px rgba(184, 147, 106, 0.12);
+}
+
+.newsletter-submit {
+  flex: 0 0 auto;
+  cursor: pointer;
+  border: none;
+}
+
+.newsletter-success {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-style: italic;
+  color: var(--warm);
+  padding: 18px 0;
+}
+
+.newsletter-error {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: #b14545;
+  margin-top: 14px;
+}
+
+.newsletter-submit[disabled],
+.newsletter-input[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 540px) {
+  .newsletter-section { padding: 80px 24px; }
+  .newsletter-form { flex-direction: column; }
+  .newsletter-submit { width: 100%; justify-content: center; }
+}
+
 /* ─── PAGE SECTIONS ─────────────────────────────────────────── */
 .page-section {
   padding: 110px 64px 90px;
