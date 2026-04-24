@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { IMAGE_WEBP_WIDTHS, withWebpVariant } from './ResponsiveImage'
+import NewsletterCard from './NewsletterCard'
 
 interface HomeProps {
   setActiveTab: (tab: string) => void
@@ -13,10 +14,13 @@ const SLIDES = [
   '/home/5.png',
 ]
 
+const POPUP_DELAY_MS = 4000
+
 export default function Home({ setActiveTab }: HomeProps) {
   const [current, setCurrent] = useState(0)
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [popupOpen, setPopupOpen] = useState(false)
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -24,6 +28,25 @@ export default function Home({ setActiveTab }: HomeProps) {
     }, 5000)
     return () => clearInterval(timer)
   }, [])
+
+  useEffect(() => {
+    const timer = setTimeout(() => setPopupOpen(true), POPUP_DELAY_MS)
+    return () => clearTimeout(timer)
+  }, [])
+
+  useEffect(() => {
+    if (!popupOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setPopupOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+    }
+  }, [popupOpen])
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -38,6 +61,15 @@ export default function Home({ setActiveTab }: HomeProps) {
       if (res.ok) {
         setStatus('success')
         setEmail('')
+        // Trigger PDF download
+        const a = document.createElement('a')
+        a.href = '/Home Manual.pdf'
+        a.download = 'Piglet Room Home Manual.pdf'
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+        // Close popup after a short delay so the thank-you message is visible
+        setTimeout(() => setPopupOpen(false), 2500)
       } else {
         setStatus('error')
       }
@@ -62,7 +94,9 @@ export default function Home({ setActiveTab }: HomeProps) {
               alt={`Piglet Room ${i + 1}`}
               loading={i === 0 ? 'eager' : 'lazy'}
               decoding="async"
-              onError={(e) => { (e.target as HTMLImageElement).closest('.hero-slide')!.style.display = 'none' }}
+              onError={(e) => {
+                ;((e.target as HTMLImageElement).closest('.hero-slide') as HTMLElement | null)?.style.setProperty('display', 'none')
+              }}
             />
           </picture>
         </div>
@@ -105,51 +139,67 @@ export default function Home({ setActiveTab }: HomeProps) {
       </div>
     </section>
 
-    <section className="newsletter-section">
-      <div className="newsletter-inner">
-        <p className="section-label">Stay Close</p>
-        <h2 className="newsletter-title">
-          Letters from<br /><em>the room.</em>
-        </h2>
-        <p className="newsletter-subtitle">
-          Quiet notes on new art, seasonal offerings, and the occasional invitation.
-          No noise, just a gentle whisper now and then.
-        </p>
+    {popupOpen && (
+      <div
+        className="newsletter-popup-backdrop"
+        onClick={() => setPopupOpen(false)}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Newsletter signup"
+      >
+        <NewsletterCard className="newsletter-popup" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
+          <button
+            type="button"
+            className="newsletter-popup-close"
+            onClick={() => setPopupOpen(false)}
+            aria-label="Close"
+          >
+            ×
+          </button>
 
-        {status === 'success' ? (
-          <p className="newsletter-success">
-            Thank you. We'll be in touch, softly.
-          </p>
-        ) : (
-          <>
-            <form className="newsletter-form" onSubmit={handleSubscribe}>
-              <input
-                type="email"
-                required
-                placeholder="your@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="newsletter-input"
-                aria-label="Email address"
-                disabled={status === 'loading'}
-              />
-              <button
-                type="submit"
-                className="btn-dark newsletter-submit"
-                disabled={status === 'loading'}
-              >
-                {status === 'loading' ? 'Sending…' : 'Subscribe'}
-              </button>
-            </form>
-            {status === 'error' && (
-              <p className="newsletter-error">
-                Something went wrong. Please try again.
-              </p>
+          <div className="newsletter-popup-body">
+            <h2 className="newsletter-popup-title">Discover Gemmayze like a local.</h2>
+            <p className="newsletter-popup-subtitle">
+              Download our curated guide to Old Beirut:{' '}
+              <strong>Gemmayze &amp; Sursock Walk</strong>, crafted only for our guests.
+              Enter your email to get a copy.
+            </p>
+
+            {status === 'success' ? (
+              <p className="newsletter-success">Thank you. We'll be in touch, softly.</p>
+            ) : (
+              <>
+                <form className="newsletter-form" onSubmit={handleSubscribe}>
+                  <input
+                    type="email"
+                    required
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="newsletter-input"
+                    aria-label="Email address"
+                    disabled={status === 'loading'}
+                  />
+                  <button
+                    type="submit"
+                    className="newsletter-submit"
+                    disabled={status === 'loading'}
+                  >
+                    {status === 'loading' ? 'Sending…' : 'Submit'}
+                  </button>
+                </form>
+                {status === 'error' && (
+                  <p className="newsletter-error">Something went wrong. Please try again.</p>
+                )}
+              </>
             )}
-          </>
-        )}
+          </div>
+        </NewsletterCard>
+
+        
       </div>
-    </section>
+      
+    )}
     </>
   )
 }
