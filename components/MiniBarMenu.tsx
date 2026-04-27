@@ -1,4 +1,4 @@
-import ResponsiveImage from './ResponsiveImage'
+import Image from 'next/image'
 
 export default function MiniBarMenu() {
   return (
@@ -13,24 +13,21 @@ export default function MiniBarMenu() {
       <div className="minibar-layout">
         <div className="">
           <div className="room-gallery-item">
-            <ResponsiveImage
+            <Image
               src="/minibar-menu/4.png"
               alt="Minibar menu"
+              width={1200}
+              height={1600}
               loading="lazy"
-              decoding="async"
               sizes="(max-width: 900px) 100vw, 50vw"
-              onError={(e) => {
-                ;(e.currentTarget.closest('.room-gallery-item') as HTMLElement | null)?.style.setProperty('display', 'none')
-              }}
+              style={{ width: '100%', height: 'auto' }}
             />
           </div>
         </div>
 
         <div>
           <p className="section-label">Honest Pricing</p>
-          <h3 className="minibar-headline">
-            Supermarket prices. In your room.
-          </h3>
+          <h3 className="minibar-headline">Supermarket prices. In your room.</h3>
           <p className="minibar-description">
             We all know the feeling… You open the minibar, check the price, and quietly close it again.
           </p>

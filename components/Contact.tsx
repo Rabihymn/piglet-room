@@ -1,4 +1,7 @@
+'use client'
+
 import { useState } from 'react'
+import Image from 'next/image'
 
 const CONTACT_VIDEO_URL =
   'https://jruldtycdsgtwp12.public.blob.vercel-storage.com/10678048-uhd_4096_2160_25fps.mp4'
@@ -26,18 +29,16 @@ export default function Contact() {
               preload="metadata"
               onError={() => setVideoFailed(true)}
             >
-              <source
-                src={CONTACT_VIDEO_URL}
-                type="video/mp4"
-              />
+              <source src={CONTACT_VIDEO_URL} type="video/mp4" />
             </video>
           ) : (
-            <img
+            <Image
               src="/home/1.png"
               alt="Piglet Room"
-              loading="eager"
-              decoding="async"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              fill
+              priority
+              sizes="(max-width: 900px) 100vw, 50vw"
+              style={{ objectFit: 'cover' }}
             />
           )}
         </div>
@@ -71,8 +72,8 @@ export default function Contact() {
             @pigletroom_
           </a>
           <a className="contact-location-value room-description-link" href="mailto:hello@pigletroom.com">
-              hello@pigletroom.com
-            </a>
+            hello@pigletroom.com
+          </a>
 
           <div className="contact-location">
             <p className="contact-location-label">Address</p>

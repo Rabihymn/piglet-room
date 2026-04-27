@@ -148,6 +148,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .navbar-tab:hover { color: var(--charcoal); background: rgba(184,147,106,0.08); }
 .navbar-tab.active { color: var(--warm); font-weight: 500; }
+.navbar-tab a { color: inherit; text-decoration: none; display: block; }
+.navbar-logo { cursor: pointer; }
 
 /* Hamburger: hidden on desktop; shown in @media (max-width: 900px) */
 .navbar-menu-btn {

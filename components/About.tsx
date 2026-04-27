@@ -1,4 +1,4 @@
-import { IMAGE_WEBP_WIDTHS, withWebpVariant } from './ResponsiveImage'
+import Image from 'next/image'
 
 export default function About() {
   return (
@@ -18,14 +18,10 @@ export default function About() {
               I&apos;ve hosted late-night thinkers, early risers, and people who said they&apos;d
               &ldquo;just stay one night. (They rarely mean it.)&rdquo;
             </p>
-            <p>
-              I&apos;m small enough to feel safe, but full of little details you&apos;ll keep discovering.
-            </p>
+            <p>I&apos;m small enough to feel safe, but full of little details you&apos;ll keep discovering.</p>
             <p>I wasn&apos;t designed to impress, I was created to feel like a pause.</p>
             <p>Not a hotel. Not just a rental.</p>
-            <p>
-              A quiet moment between places, where you can breathe, reset, and feel at home without trying.
-            </p>
+            <p>A quiet moment between places, where you can breathe, reset, and feel at home without trying.</p>
           </div>
 
           <div className="about-details">
@@ -58,16 +54,15 @@ export default function About() {
         </div>
 
         <div className="about-image-stack">
-          <picture>
-            <img
-              className="about-image-main"
-              src="/the-room/room/0.w768.webp"
-              alt="Piglet Room interior"
-              loading="eager"
-              decoding="async"
-              onError={(e) => { (e.target as HTMLImageElement).src = '/home/1.png' }}
-            />
-          </picture>
+          <Image
+            className="about-image-main"
+            src="/the-room/room/0.png"
+            alt="Piglet Room interior"
+            width={1024}
+            height={1536}
+            priority
+            sizes="(max-width: 900px) 100vw, 50vw"
+          />
         </div>
       </div>
     </section>
