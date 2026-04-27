@@ -166,7 +166,7 @@ export default function Home({ setActiveTab }: HomeProps) {
             </p>
 
             {status === 'success' ? (
-              <p className="newsletter-success">Thank you. We'll be in touch, softly.</p>
+              <p className="newsletter-success">Thank you. We'll be in touch.</p>
             ) : (
               <>
                 <form className="newsletter-form" onSubmit={handleSubscribe}>
