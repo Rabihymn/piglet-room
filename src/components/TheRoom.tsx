@@ -253,6 +253,10 @@ export default function TheRoom() {
             >
               {images.map((src, i) => {
                 const artHover = activeSubTab === 'art' ? ART_HOVER_BY_SRC[src] : undefined
+                const isHero = i === 0 && (activeSubTab === 'the-room' || activeSubTab === 'location')
+                const itemSizes = isHero
+                  ? '(max-width: 900px) 100vw, min(1200px, 92vw)'
+                  : '(max-width: 900px) 50vw, 46vw'
                 if (!artHover) {
                   return (
                     <div
@@ -263,7 +267,8 @@ export default function TheRoom() {
                       <ResponsiveImage
                         src={src}
                         alt={`${activeSubTab} ${i + 1}`}
-                        loading="lazy"
+                        sizes={itemSizes}
+                        loading={i === 0 ? 'eager' : 'lazy'}
                         decoding="async"
                         onError={(e) => {
                           ;(e.currentTarget.closest('.room-gallery-item') as HTMLElement | null)?.style.setProperty('display', 'none')
@@ -287,6 +292,7 @@ export default function TheRoom() {
                       <ResponsiveImage
                         src={src}
                         alt={`${artHover.title} — artwork`}
+                        sizes={itemSizes}
                         loading="lazy"
                         decoding="async"
                         onError={(e) => {

@@ -937,6 +937,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   background: transparent;
   overflow: hidden;
   border-radius: 2px;
+  min-height: 240px;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 480px;
 }
 
 /* Contain mode: undo default 2×2 hero span so every tile (incl. first) follows the fluid 2-col grid */
