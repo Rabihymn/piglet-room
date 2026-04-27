@@ -363,11 +363,12 @@ export default function TheRoom() {
       )}
 
       {activeSubTab === 'the-room' && (
-        <div className="room-tab-copy">
-          <div className="room-description-stack">
-            <p className="room-description room-description-summary">
-              Sleeps two | 40 sqm studio + 36 sqm Seasonal Communal Terrace| King Size Bed
-            </p>
+        <div className="room-info">
+          <div>
+            <div className="room-description-stack">
+              <p className="room-description room-description-summary">
+                Sleeps two | 40 sqm studio + 36 sqm Seasonal Communal Terrace| King Size Bed
+              </p>
               <p className="room-description">
                 Located on Gouraud Street in Gemmayze, The Piglet Room sits within the Cool
                 Convivium V building, just 4 minutes by car from downtown. Thoughtfully designed
@@ -384,15 +385,33 @@ export default function TheRoom() {
                 from one of the area&apos;s most popular spots, with restaurants, bars, cafés, and
                 nightlife all within walking distance.
               </p>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
+              <a
+                href="https://www.airbnb.com/hosting/listings"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-dark"
+              >
+                Book on Airbnb
+              </a>
+              <p style={{ fontSize: '13px', color: 'var(--gray-text)' }}>
+                *Communal Terrace available Mid-May to September
+              </p>
+            </div>
           </div>
-          <a
-            href="https://www.airbnb.com/hosting/listings"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-dark"
-          >
-            Book on Airbnb
-          </a>
+
+          <div>
+            <p className="section-label" style={{ marginBottom: '24px' }}>Amenities</p>
+            <div className="room-amenities">
+              {amenityRows(AMENITIES).map(([left, right], i) => (
+                <div key={i} className="room-amenity-row">
+                  <div className="amenity">{left}</div>
+                  <div className="amenity">{right}</div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       )}
 

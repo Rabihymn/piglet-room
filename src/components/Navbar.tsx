@@ -1,4 +1,11 @@
 import { useState, useEffect, useCallback } from 'react'
+import { IMAGE_WEBP_WIDTHS, withWebpVariant } from './ResponsiveImage'
+
+const LOGO_FULL_SRC = '/logo/logo final.png'
+const LOGO_PIG_SRC = '/logo/pig.png'
+const LOGO_FULL_WEBP_SRCSET = IMAGE_WEBP_WIDTHS.map(w => `${withWebpVariant(LOGO_FULL_SRC, w)} ${w}w`).join(', ')
+const LOGO_PIG_WEBP_SRCSET = IMAGE_WEBP_WIDTHS.map(w => `${withWebpVariant(LOGO_PIG_SRC, w)} ${w}w`).join(', ')
+const LOGO_SIZES = '(max-width: 700px) 200px, 320px'
 
 interface NavbarProps {
   activeTab: string
@@ -77,20 +84,27 @@ export default function Navbar({ activeTab, setActiveTab }: NavbarProps) {
 
         <div className="navbar-logo-shell">
           <div className="navbar-logo" onClick={goHome}>
-            <img
-              className={`logo-full${scrolled ? ' logo-out' : ''}`}
-              src="/logo/logo%20final.png"
-              alt="Piglet Room"
-              loading="eager"
-              decoding="async"
-            />
-            <img
-              className={`logo-pig${scrolled ? ' logo-in' : ''}`}
-              src="/logo/pig.png"
-              alt="Piglet Room"
-              loading="eager"
-              decoding="async"
-            />
+            <picture>
+              <source type="image/webp" srcSet={LOGO_FULL_WEBP_SRCSET} sizes={LOGO_SIZES} />
+              <img
+                className={`logo-full${scrolled ? ' logo-out' : ''}`}
+                src={LOGO_FULL_SRC}
+                alt="Piglet Room"
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
+              />
+            </picture>
+            <picture>
+              <source type="image/webp" srcSet={LOGO_PIG_WEBP_SRCSET} sizes={LOGO_SIZES} />
+              <img
+                className={`logo-pig${scrolled ? ' logo-in' : ''}`}
+                src={LOGO_PIG_SRC}
+                alt="Piglet Room"
+                loading="eager"
+                decoding="async"
+              />
+            </picture>
           </div>
         </div>
 
