@@ -1,16 +1,5 @@
-node_modules/
-dist/
+node_modules
+.next
+out
+.env*.local
 .DS_Store
-
-# env
-.env
-.env.*.local
-
-# large media (host separately / add later via LFS)
-public/contact-us/*.mp4
-
-# logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-

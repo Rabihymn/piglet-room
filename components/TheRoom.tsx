@@ -1,6 +1,8 @@
+'use client'
+
 import { useState } from 'react'
 import type { CSSProperties } from 'react'
-import ResponsiveImage, { IMAGE_WEBP_WIDTHS, withWebpVariant } from './ResponsiveImage'
+import Image from 'next/image'
 
 interface SubTab {
   id: string
@@ -19,25 +21,15 @@ const SUB_TABS: SubTab[] = [
 
 const GALLERIES: Record<string, string[]> = {
   'the-room': [
-    '1.png', '0.png',  '3.png', '4....png', '5.png',
-    '6.png', '9..png','11.png',
-    '12.png', '14..png', '15.png', '16.png', '17..png','2.png', '8.png',
+    '1.png', '0.png', '3.png', '4....png', '5.png',
+    '6.png', '9..png', '11.png',
+    '12.png', '14..png', '15.png', '16.png', '17..png', '2.png', '8.png',
   ].map(f => `/the-room/room/${f}`),
 
-  bathroom: ['6.png', '7.png', '8.png', '10.png'].map(
-    f => `/the-room/bathroom/${f}`
-  ),
-
-  kitchen: ['1.png', '3.png', '8.png', '5.png'].map(
-    f => `/the-room/kitchen/${f}`
-  ),
-
+  bathroom: ['6.png', '7.png', '8.png', '10.png'].map(f => `/the-room/bathroom/${f}`),
+  kitchen: ['1.png', '3.png', '8.png', '5.png'].map(f => `/the-room/kitchen/${f}`),
   terrace: [],
-
-  location: [
-    '/the-room/location/22.png',
-  ],
-
+  location: ['/the-room/location/22.png'],
   art: ['3.png', '10.png'].map(f => `/the-room/Art/${f}`),
 }
 
@@ -53,7 +45,6 @@ type ArtHoverCopy = {
   footerLink?: { href: string; label: string }
 }
 
-/** Per-image hover copy in the Art tab. Add or edit keys to match `GALLERIES.art` paths. */
 const ART_HOVER_BY_SRC: Record<string, ArtHoverCopy> = {
   '/the-room/Art/3.png': {
     title: 'The Drip King',
@@ -98,9 +89,7 @@ function ArtHoverOverlay({ copy }: { copy: ArtHoverCopy }) {
       <p className="art-hover-section">{copy.sectionTitle}</p>
       <div className="art-hover-body-columns">
         {copy.paragraphs.map((text, idx) => (
-          <p key={idx} className="art-hover-body">
-            {text}
-          </p>
+          <p key={idx} className="art-hover-body">{text}</p>
         ))}
       </div>
       <p className="art-hover-quote">&ldquo;{copy.quote}&rdquo;</p>
@@ -134,13 +123,7 @@ function ArtHoverOverlay({ copy }: { copy: ArtHoverCopy }) {
   )
 }
 
-/** Percent positions over the floor plan image — tune if your JPEG framing differs. */
-const PLAN_HOTSPOTS: {
-  id: string
-  label: string
-  n: number
-  style: CSSProperties
-}[] = [
+const PLAN_HOTSPOTS: { id: string; label: string; n: number; style: CSSProperties }[] = [
   { id: 'the-room', label: 'The bedroom', n: 1, style: { left: '21%', top: '11%', width: '23%', height: '31%' } },
   { id: 'kitchen', label: 'Open kitchen', n: 2, style: { left: '44%', top: '11%', width: '17%', height: '14%' } },
   { id: 'bathroom', label: 'Bathroom', n: 3, style: { left: '51%', top: '25%', width: '10%', height: '19%' } },
@@ -213,21 +196,17 @@ export default function TheRoom() {
       {activeSubTab === 'plan' && (
         <div className="room-floor-plan">
           <p className="room-floor-plan-hint">Tap a numbered area to open its photo gallery.</p>
-          <div className="room-floor-plan-wrap">
-            <picture>
-              <source
-                type="image/webp"
-                srcSet={IMAGE_WEBP_WIDTHS.map(w => `${withWebpVariant(PLAN_SRC, w)} ${w}w`).join(', ')}
-                sizes="(max-width: 900px) 96vw, min(920px, 88vw)"
-              />
-              <img
-                className="room-floor-plan-img"
-                src={PLAN_SRC}
-                alt="Piglet Room general layout floor plan — Gemmayze, Beirut"
-                loading="eager"
-                decoding="async"
-              />
-            </picture>
+          <div className="room-floor-plan-wrap" style={{ position: 'relative' }}>
+            <Image
+              className="room-floor-plan-img"
+              src={PLAN_SRC}
+              alt="Piglet Room general layout floor plan — Gemmayze, Beirut"
+              width={1600}
+              height={1200}
+              priority
+              sizes="(max-width: 900px) 96vw, min(920px, 88vw)"
+              style={{ width: '100%', height: 'auto' }}
+            />
             {PLAN_HOTSPOTS.map(zone => (
               <button
                 key={zone.id}
@@ -237,8 +216,7 @@ export default function TheRoom() {
                 aria-label={`View photos: ${zone.label}`}
                 title={zone.label}
                 onClick={() => selectFromPlan(zone.id)}
-              >
-              </button>
+              />
             ))}
           </div>
         </div>
@@ -264,24 +242,26 @@ export default function TheRoom() {
                       className="room-gallery-item"
                       onClick={() => setLightbox(src)}
                     >
-                      <ResponsiveImage
+                      <Image
                         src={src}
                         alt={`${activeSubTab} ${i + 1}`}
+                        width={1600}
+                        height={1200}
                         sizes={itemSizes}
-                        loading={i === 0 ? 'eager' : 'lazy'}
-                        decoding="async"
-                        onError={(e) => {
-                          ;(e.currentTarget.closest('.room-gallery-item') as HTMLElement | null)?.style.setProperty('display', 'none')
-                        }}
+                        priority={i === 0}
+                        loading={i === 0 ? undefined : 'lazy'}
+                        style={{ width: '100%', height: 'auto' }}
                       />
                     </div>
                   )
                 }
 
                 const buyHref =
-                  src === '/the-room/Art/3.png' ? 'https://arteahead.com/collections/artworks/products/the-drip-king-1?_pos=10&_fid=e12e6ade7&_ss=c'
-                    : src === '/the-room/Art/10.png' ? 'https://arteahead.com/collections/artworks/products/mr-psyche-1?_pos=13&_fid=e12e6ade7&_ss=c'
-                      : 'https://www.arteahead.com'
+                  src === '/the-room/Art/3.png'
+                    ? 'https://arteahead.com/collections/artworks/products/the-drip-king-1?_pos=10&_fid=e12e6ade7&_ss=c'
+                    : src === '/the-room/Art/10.png'
+                    ? 'https://arteahead.com/collections/artworks/products/mr-psyche-1?_pos=13&_fid=e12e6ade7&_ss=c'
+                    : 'https://www.arteahead.com'
                 return (
                   <div key={`${activeSubTab}-${i}`} className="art-card">
                     <div
@@ -289,15 +269,14 @@ export default function TheRoom() {
                       tabIndex={0}
                       onClick={() => setLightbox(src)}
                     >
-                      <ResponsiveImage
+                      <Image
                         src={src}
                         alt={`${artHover.title} — artwork`}
+                        width={1600}
+                        height={1200}
                         sizes={itemSizes}
                         loading="lazy"
-                        decoding="async"
-                        onError={(e) => {
-                          ;(e.currentTarget.closest('.room-gallery-item') as HTMLElement | null)?.style.setProperty('display', 'none')
-                        }}
+                        style={{ width: '100%', height: 'auto' }}
                       />
                       <ArtHoverOverlay copy={artHover} />
                     </div>
@@ -319,9 +298,7 @@ export default function TheRoom() {
               })}
             </div>
           ) : activeSubTab !== 'terrace' && activeSubTab !== 'art' ? (
-            <p className="room-gallery-empty">
-              No photos are available in this gallery yet.
-            </p>
+            <p className="room-gallery-empty">No photos are available in this gallery yet.</p>
           ) : null}
         </>
       )}
@@ -334,17 +311,11 @@ export default function TheRoom() {
                 Sleeps two | 40 m² studio + 36 m² Seasonal Communal Terrace| King Size Bed
               </p>
               <p className="room-description">
-            Designed as an open, easy-living studio.
-            Each area flows naturally into the next, creating a calm and functional stay experience. The above layout illustrates The Piglet Room’s general plan , a 40 sqm studio with access to a 36 sqm outdoor seasonal communal terrace open from mid-May to September.
+                Designed as an open, easy-living studio. Each area flows naturally into the next, creating a calm and functional stay experience. The above layout illustrates The Piglet Room’s general plan , a 40 sqm studio with access to a 36 sqm outdoor seasonal communal terrace open from mid-May to September.
               </p>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
-              <a
-                href="https://www.airbnb.com/hosting/listings"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-dark"
-              >
+              <a href="https://www.airbnb.com/hosting/listings" target="_blank" rel="noopener noreferrer" className="btn-dark">
                 Book on Airbnb
               </a>
               <p style={{ fontSize: '13px', color: 'var(--gray-text)' }}>
@@ -375,29 +346,17 @@ export default function TheRoom() {
                 Sleeps two | 40 sqm studio + 36 sqm Seasonal Communal Terrace| King Size Bed
               </p>
               <p className="room-description">
-                Located on Gouraud Street in Gemmayze, The Piglet Room sits within the Cool
-                Convivium V building, just 4 minutes by car from downtown. Thoughtfully designed
-                with a warm, modern feel, the space features a comfortable king size bed with a
-                couch set in front of it, a fully equipped kitchen, and a round table dining area.
+                Located on Gouraud Street in Gemmayze, The Piglet Room sits within the Cool Convivium V building, just 4 minutes by car from downtown. Thoughtfully designed with a warm, modern feel, the space features a comfortable king size bed with a couch set in front of it, a fully equipped kitchen, and a round table dining area.
               </p>
               <p className="room-description">
-                The air-conditioned room also includes a flat-screen TV, en suite bathroom, and a
-                fully stocked minibar for your convenience.
+                The air-conditioned room also includes a flat-screen TV, en suite bathroom, and a fully stocked minibar for your convenience.
               </p>
               <p className="room-description">
-                Guests have access to a shared outdoor terrace, an inviting space to relax and
-                socialize. Located in the same building as Ginette Café, you&apos;re steps away
-                from one of the area&apos;s most popular spots, with restaurants, bars, cafés, and
-                nightlife all within walking distance.
+                Guests have access to a shared outdoor terrace, an inviting space to relax and socialize. Located in the same building as Ginette Café, you&apos;re steps away from one of the area&apos;s most popular spots, with restaurants, bars, cafés, and nightlife all within walking distance.
               </p>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
-              <a
-                href="https://www.airbnb.com/hosting/listings"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-dark"
-              >
+              <a href="https://www.airbnb.com/hosting/listings" target="_blank" rel="noopener noreferrer" className="btn-dark">
                 Book on Airbnb
               </a>
               <p style={{ fontSize: '13px', color: 'var(--gray-text)' }}>
@@ -423,27 +382,15 @@ export default function TheRoom() {
       {activeSubTab === 'bathroom' && (
         <div className="room-tab-copy">
           <div className="room-description-stack">
-            <p className="room-description room-description-summary">
-              En suite bathroom | 3.6 sqm
+            <p className="room-description room-description-summary">En suite bathroom | 3.6 sqm</p>
+            <p className="room-description">
+              The En suite bathroom is designed with an oriental inspired aesthetic, blending warm tones and natural materials to create a calm, intimate atmosphere. A wooden mirror and soft lighting add depth, while a crafted wooden partition gently frames a walk in shower, adding structure to the space.
             </p>
             <p className="room-description">
-              The En suite bathroom is designed with an oriental inspired aesthetic, blending warm
-              tones and natural materials to create a calm, intimate atmosphere. A wooden mirror and
-              soft lighting add depth, while a crafted wooden partition gently frames a walk in shower,
-              adding structure to the space.
-            </p>
-            <p className="room-description">
-              Layered with character, the walls are accented with carefully selected artwork, bringing
-              texture and a collected, lived-in feel. Altogether, the space feels cozy, grounding, and
-              quietly refined, a place to slow down and unwind.
+              Layered with character, the walls are accented with carefully selected artwork, bringing texture and a collected, lived-in feel. Altogether, the space feels cozy, grounding, and quietly refined, a place to slow down and unwind.
             </p>
           </div>
-          <a
-            href="https://www.airbnb.com/hosting/listings"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-dark"
-          >
+          <a href="https://www.airbnb.com/hosting/listings" target="_blank" rel="noopener noreferrer" className="btn-dark">
             Book on Airbnb
           </a>
         </div>
@@ -454,30 +401,16 @@ export default function TheRoom() {
           <div className="room-description-stack">
             <h3 className="room-tab-title">Open Kitchen & Honest Minibar</h3>
             <p className="room-description">
-              The open kitchen is fully equipped with a Nespresso machine, kettle, toaster, and
-              everything you need for easy, relaxed living. For longer stays, you&apos;ll also find a
-              washing machine, iron, and ironing board.
+              The open kitchen is fully equipped with a Nespresso machine, kettle, toaster, and everything you need for easy, relaxed living. For longer stays, you&apos;ll also find a washing machine, iron, and ironing board.
             </p>
-            <p className="room-description">
-              A round dining table with four chairs creates the perfect spot to enjoy a drink, a meal,
-              or simply unwind.
-            </p>
+            <p className="room-description">A round dining table with four chairs creates the perfect spot to enjoy a drink, a meal, or simply unwind.</p>
             <p className="room-description">
               You&apos;ll also find a thoughtfully curated minibar,{' '}
-              <em>
-                without the usual hotel prices (everything is priced like your local supermarket).
-              </em>
+              <em>without the usual hotel prices (everything is priced like your local supermarket).</em>
             </p>
-            <p className="room-description">
-              <em>A blend of practicality and little luxuries that make all the difference.</em>
-            </p>
+            <p className="room-description"><em>A blend of practicality and little luxuries that make all the difference.</em></p>
           </div>
-          <a
-            href="https://www.airbnb.com/hosting/listings"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-dark"
-          >
+          <a href="https://www.airbnb.com/hosting/listings" target="_blank" rel="noopener noreferrer" className="btn-dark">
             Book on Airbnb
           </a>
         </div>
@@ -487,7 +420,7 @@ export default function TheRoom() {
         <div className="room-tab-copy">
           <div className="room-description-stack">
             <p className="room-description">
-            Imagine stepping out of your room and grabbing your morning coffee at Ginette Coffee Shop, right in the same building! Located on Gouraud Street in Gemmayze, your cozy stay puts the best of the neighborhood within reach. Just 4 minutes away by car from Downtown Beirut and Saifi Village, you’re perfectly positioned to explore the city with ease.
+              Imagine stepping out of your room and grabbing your morning coffee at Ginette Coffee Shop, right in the same building! Located on Gouraud Street in Gemmayze, your cozy stay puts the best of the neighborhood within reach. Just 4 minutes away by car from Downtown Beirut and Saifi Village, you’re perfectly positioned to explore the city with ease.
             </p>
           </div>
         </div>
@@ -497,31 +430,17 @@ export default function TheRoom() {
         <div className="room-tab-copy">
           <div className="room-description-stack">
             <p className="room-description">
-              There&apos;s a moment when the details begin to reveal themselves. A piece on the wall
-              catches your eye. Later, it feels different as the light shifts.
+              There&apos;s a moment when the details begin to reveal themselves. A piece on the wall catches your eye. Later, it feels different as the light shifts.
             </p>
             <p className="room-description">
               The artworks in Piglet Room are part of the stay, not just the space. Curated with{' '}
-              <a
-                href="https://www.arteahead.com"
-                className="room-description-link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Arte Ahead
-              </a>
+              <a href="https://www.arteahead.com" className="room-description-link" target="_blank" rel="noopener noreferrer">Arte Ahead</a>
               , they quietly shape the atmosphere.
             </p>
-            <p className="room-description">
-              You might pause a little longer. Or notice something new the second time.
-            </p>
-            <p className="room-description">
-              A small detail, but one that stays with you.
-            </p>
+            <p className="room-description">You might pause a little longer. Or notice something new the second time.</p>
+            <p className="room-description">A small detail, but one that stays with you.</p>
             {images.length === 0 && (
-              <p className="room-description">
-                <em>Gallery photos will appear above once they are added.</em>
-              </p>
+              <p className="room-description"><em>Gallery photos will appear above once they are added.</em></p>
             )}
           </div>
         </div>
@@ -532,14 +451,10 @@ export default function TheRoom() {
           <div className="room-description-stack">
             <h3 className="room-tab-title">Communal terrace · 36&nbsp;m² · May–September</h3>
             <p className="room-description">
-              Step into a communal outdoor terrace for guests in the building, an open-air counterpoint
-              to the studio&apos;s quiet interior. There&apos;s space to settle with a morning coffee,
-              read in the shade, or share a bottle as the evening cools over Gemmayze.
+              Step into a communal outdoor terrace for guests in the building, an open-air counterpoint to the studio&apos;s quiet interior. There&apos;s space to settle with a morning coffee, read in the shade, or share a bottle as the evening cools over Gemmayze.
             </p>
             <p className="room-description">
-              Seating, planters, and a relaxed layout make it easy to linger. You&apos;re still within
-              the same address as Ginette Café, with restaurants, bars, and cafés a short walk away
-              when you want to slip back into the street&apos;s rhythm.
+              Seating, planters, and a relaxed layout make it easy to linger. You&apos;re still within the same address as Ginette Café, with restaurants, bars, and cafés a short walk away when you want to slip back into the street&apos;s rhythm.
             </p>
             {images.length === 0 && (
               <p className="room-description">
@@ -547,12 +462,7 @@ export default function TheRoom() {
               </p>
             )}
           </div>
-          <a
-            href="https://www.airbnb.com/hosting/listings"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-dark"
-          >
+          <a href="https://www.airbnb.com/hosting/listings" target="_blank" rel="noopener noreferrer" className="btn-dark">
             Book on Airbnb
           </a>
         </div>
@@ -561,14 +471,16 @@ export default function TheRoom() {
       {lightbox && (
         <div className="lightbox" onClick={() => setLightbox(null)}>
           <button type="button" className="lightbox-close" onClick={() => setLightbox(null)}>×</button>
-          <picture className="lightbox-picture" onClick={e => e.stopPropagation()}>
-            <source
-              type="image/webp"
-              srcSet={IMAGE_WEBP_WIDTHS.map(w => `${withWebpVariant(lightbox, w)} ${w}w`).join(', ')}
+          <div className="lightbox-picture" onClick={e => e.stopPropagation()}>
+            <Image
+              src={lightbox}
+              alt="Room detail"
+              width={1600}
+              height={1200}
               sizes="min(1600px, 90vw)"
+              style={{ width: 'auto', height: 'auto', maxWidth: '90vw', maxHeight: '90vh' }}
             />
-            <img src={lightbox} alt="Room detail" />
-          </picture>
+          </div>
         </div>
       )}
     </section>
