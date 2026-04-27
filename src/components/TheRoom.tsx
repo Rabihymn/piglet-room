@@ -378,7 +378,7 @@ export default function TheRoom() {
         <div className="room-tab-copy">
           <div className="room-description-stack">
             <p className="room-description room-description-summary">
-              Sleeps two | 40 sqm studio | King Size Bed
+              Sleeps two | 40 sqm studio + 36 sqm Seasonal Communal Terrace| King Size Bed
             </p>
             <p className="room-description">
             Designed as an open, easy-living studio.
