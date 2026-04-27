@@ -14,7 +14,7 @@ const SLIDES = [
   '/home/5.png',
 ]
 
-const POPUP_DELAY_MS = 4000
+const POPUP_DELAY_MS = 2000
 
 export default function Home({ setActiveTab }: HomeProps) {
   const [current, setCurrent] = useState(0)
@@ -69,7 +69,7 @@ export default function Home({ setActiveTab }: HomeProps) {
         a.click()
         document.body.removeChild(a)
         // Close popup after a short delay so the thank-you message is visible
-        setTimeout(() => setPopupOpen(false), 2500)
+        setTimeout(() => setPopupOpen(false), 5000)
       } else {
         setStatus('error')
       }
@@ -161,8 +161,8 @@ export default function Home({ setActiveTab }: HomeProps) {
             <h2 className="newsletter-popup-title">Discover Gemmayze like a local.</h2>
             <p className="newsletter-popup-subtitle">
               Download our curated guide to Old Beirut:{' '}
-              <strong>Gemmayze &amp; Sursock Walk</strong>, crafted only for our guests.
-              Enter your email to get a copy.
+              <strong>Gemmayze &amp; Sursock Walk</strong>, crafted <strong>Only For Our Guests!</strong>
+              {' '}Enter your email to get a copy.
             </p>
 
             {status === 'success' ? (

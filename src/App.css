@@ -458,7 +458,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   border: 0;
   background: transparent;
   color: var(--charcoal);
-  font-size: 30px;
+  font-size: 40px;
   line-height: 1;
   cursor: pointer;
   transition: transform 0.2s ease, opacity 0.2s ease;
@@ -479,17 +479,18 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .newsletter-popup-title {
   font-family: var(--font-sans);
-  font-size: clamp(30px, 4vw, 42px);
+  font-size: clamp(30px, 3vw, 42px);
   font-weight: 800;
   line-height: 1.08;
   margin: 0 0 16px;
   max-width: 560px;
   color: var(--charcoal);
+  color: #c488a8;
 }
 
 .newsletter-popup-subtitle {
   font-family: var(--font-sans);
-  font-size: clamp(16px, 2vw, 19px);
+  font-size: clamp(16px, 1vw, 19px);
   font-weight: 500;
   line-height: 1.45;
   color: var(--charcoal);
@@ -509,7 +510,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   flex: 1;
   min-width: 0;
   height: 52px;
-  border: 2px solid var(--charcoal);
+  border: 2px solid #c488a8;
   border-radius: 999px;
   padding: 0 20px;
   font-size: 16px;
@@ -522,11 +523,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .newsletter-submit {
   height: 52px;
-  border: 2px solid var(--charcoal);
   border-radius: 999px;
   padding: 0 30px;
   background: var(--charcoal);
   color: #dfff00;
+  background: #c488a8;
   font-family: var(--font-sans);
   font-size: 16px;
   font-weight: 800;
@@ -611,11 +612,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .newsletter-card__svg--mobile  { display: block; }
 
   .newsletter-card__content {
-    padding: 60px 36px 36px;
+    padding: 75px 36px 36px;
   }
 
   .newsletter-popup-close {
-    top: 20px;
+    top: 35px;
     right: 28px;
     font-size: 20px;
     width: 28px;
