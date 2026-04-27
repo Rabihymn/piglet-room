@@ -300,14 +300,6 @@ export default function TheRoom() {
                         }}
                       />
                       <ArtHoverOverlay copy={artHover} />
-          <a
-            href="https://www.airbnb.com/hosting/listings"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-dark"
-          >
-            Book on Airbnb
-          </a>
                     </div>
 
                     <div className="art-buy-row">
@@ -538,7 +530,7 @@ export default function TheRoom() {
       {activeSubTab === 'terrace' && (
         <div className="room-tab-copy">
           <div className="room-description-stack">
-            <h3 className="room-tab-title">Communal terrace · 29&nbsp;m² · May–September</h3>
+            <h3 className="room-tab-title">Communal terrace · 36&nbsp;m² · May–September</h3>
             <p className="room-description">
               Step into a communal outdoor terrace for guests in the building, an open-air counterpoint
               to the studio&apos;s quiet interior. There&apos;s space to settle with a morning coffee,

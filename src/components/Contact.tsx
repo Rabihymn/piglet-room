@@ -18,7 +18,14 @@ export default function Contact() {
       <div className="contact-layout">
         <div className="contact-video">
           {!videoFailed ? (
-            <video autoPlay muted loop playsInline onError={() => setVideoFailed(true)}>
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              onError={() => setVideoFailed(true)}
+            >
               <source
                 src={CONTACT_VIDEO_URL}
                 type="video/mp4"
@@ -59,7 +66,7 @@ export default function Contact() {
             href="https://www.instagram.com/pigletroom_/"
             target="_blank"
             rel="noopener noreferrer"
-            className="contact-handle"
+            className="contact-handle "
           >
             @pigletroom_
           </a>
