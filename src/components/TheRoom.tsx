@@ -150,14 +150,20 @@ const PLAN_HOTSPOTS: {
 const PLAN_SRC = '/the-room/room/plan.jpg'
 
 const AMENITIES = [
-  'En-suite bathroom with a shower',
   'Duvet and pillows with Egyptian cotton sheets',
   'Revlon hair dryer and BaByliss straighteners',
+  'En-suite bathroom with a shower',
   'Fully stocked minibar with drinks',
-  'Nespresso coffee machine, kettle and toaster',
-  'WiFi',
+  'Nespresso coffee machine',
+  'Kettle and toaster',
+  'Free WiFi',
+  'A/C',
   'Smart TV',
   'Iron and ironing board',
+  'Microwave',
+  'Washing machine',
+  'Drying rack',
+  'Seasonal communal Terrace',
 ]
 
 function amenityRows(items: string[]): [string, string][] {
@@ -341,7 +347,7 @@ export default function TheRoom() {
                 Book on Airbnb
               </a>
               <p style={{ fontSize: '13px', color: 'var(--gray-text)' }}>
-                *Terrace available May–September
+                *Communal Terrace available Mid-May to September
               </p>
             </div>
           </div>
