@@ -76,8 +76,15 @@
     }
     </script>
 
-    <!-- Preload critical assets -->
-    <link rel="preload" as="image" href="/home/1.w1200.webp" type="image/webp" />
+    <!-- Preload critical assets: hero WebP must match srcset + sizes or the browser may never use the preloaded URL -->
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      href="/home/1.w1200.webp"
+      imagesrcset="/home/1.w480.webp 480w, /home/1.w768.webp 768w, /home/1.w1200.webp 1200w, /home/1.w1600.webp 1600w"
+      imagesizes="100vw"
+    />
     <link rel="preload" as="image" href="/logo/logo final.png" />
 
     <!-- Fonts -->

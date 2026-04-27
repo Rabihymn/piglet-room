@@ -35,7 +35,7 @@ export default function About() {
             </div>
             <div className="about-detail">
               <p className="about-detail-label">Size</p>
-              <p className="about-detail-value">38 m² Studio<br />+ 29 m² Seasonal Communal Terrace</p>
+              <p className="about-detail-value">40 m² Studio<br />+ 36 m² Seasonal Communal Terrace</p>
             </div>
             <div className="about-detail">
               <p className="about-detail-label">Capacity</p>

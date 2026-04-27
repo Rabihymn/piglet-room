@@ -193,7 +193,7 @@ export default function TheRoom() {
   return (
     <section className="page-section">
       <div className="page-header">
-        <p className="section-label">38 m² Studio + 29 m² Seasonal Communal Terrace · Gouraud Street, Gemmayze</p>
+        <p className="section-label">Gouraud Street, Gemmayze</p>
         <h2 className="section-title">The<br /><em>Space.</em></h2>
       </div>
 
@@ -287,6 +287,14 @@ export default function TheRoom() {
                         }}
                       />
                       <ArtHoverOverlay copy={artHover} />
+          <a
+            href="https://www.airbnb.com/hosting/listings"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-dark"
+          >
+            Book on Airbnb
+          </a>
                     </div>
 
                     <div className="art-buy-row">
@@ -313,12 +321,12 @@ export default function TheRoom() {
         </>
       )}
 
-      {(activeSubTab === 'the-room' || activeSubTab === 'plan') && (
+      {activeSubTab === 'plan' && (
         <div className="room-info">
           <div>
             <div className="room-description-stack">
               <p className="room-description room-description-summary">
-                Sleeps two | 38 sqm studio | King Size Bed
+                Sleeps two | 40 m² studio + 36 m² Seasonal Communal Terrace| King Size Bed
               </p>
               <p className="room-description">
                 Located on Gouraud Street in Gemmayze, The Piglet Room sits within the Cool
@@ -366,6 +374,28 @@ export default function TheRoom() {
         </div>
       )}
 
+      {activeSubTab === 'the-room' && (
+        <div className="room-tab-copy">
+          <div className="room-description-stack">
+            <p className="room-description room-description-summary">
+              Sleeps two | 40 sqm studio | King Size Bed
+            </p>
+            <p className="room-description">
+            Designed as an open, easy-living studio.
+            Each area flows naturally into the next, creating a calm and functional stay experience. The above layout illustrates The Piglet Room’s general plan , a 40 sqm studio with access to a 36 sqm outdoor seasonal communal terrace open from mid-May to September.
+              </p>
+          </div>
+          <a
+            href="https://www.airbnb.com/hosting/listings"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-dark"
+          >
+            Book on Airbnb
+          </a>
+        </div>
+      )}
+
       {activeSubTab === 'bathroom' && (
         <div className="room-tab-copy">
           <div className="room-description-stack">
@@ -384,6 +414,14 @@ export default function TheRoom() {
               quietly refined, a place to slow down and unwind.
             </p>
           </div>
+          <a
+            href="https://www.airbnb.com/hosting/listings"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-dark"
+          >
+            Book on Airbnb
+          </a>
         </div>
       )}
 
@@ -410,6 +448,14 @@ export default function TheRoom() {
               <em>A blend of practicality and little luxuries that make all the difference.</em>
             </p>
           </div>
+          <a
+            href="https://www.airbnb.com/hosting/listings"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-dark"
+          >
+            Book on Airbnb
+          </a>
         </div>
       )}
 
@@ -477,6 +523,14 @@ export default function TheRoom() {
               </p>
             )}
           </div>
+          <a
+            href="https://www.airbnb.com/hosting/listings"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-dark"
+          >
+            Book on Airbnb
+          </a>
         </div>
       )}
 

@@ -1167,6 +1167,9 @@ a.room-description-link:hover {
   padding-top: 56px;
   border-top: 1px solid var(--gray);
   max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 .room-tab-title {
@@ -1635,6 +1638,9 @@ a.room-description-link:hover {
   .about-layout,
   .minibar-layout,
   .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+
+  /* Image above copy when stacked (phone / narrow) */
+  .about-layout .about-image-stack { order: -1; }
 
   .about-image-accent { display: none; }
 
