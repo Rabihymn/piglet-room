@@ -214,13 +214,20 @@ export default function TheRoom() {
         <div className="room-floor-plan">
           <p className="room-floor-plan-hint">Tap a numbered area to open its photo gallery.</p>
           <div className="room-floor-plan-wrap">
-            <img
-              className="room-floor-plan-img"
-              src={PLAN_SRC}
-              alt="Piglet Room general layout floor plan"
-              loading="eager"
-              decoding="async"
-            />
+            <picture>
+              <source
+                type="image/webp"
+                srcSet={IMAGE_WEBP_WIDTHS.map(w => `${withWebpVariant(PLAN_SRC, w)} ${w}w`).join(', ')}
+                sizes="(max-width: 900px) 96vw, min(920px, 88vw)"
+              />
+              <img
+                className="room-floor-plan-img"
+                src={PLAN_SRC}
+                alt="Piglet Room general layout floor plan — Gemmayze, Beirut"
+                loading="eager"
+                decoding="async"
+              />
+            </picture>
             {PLAN_HOTSPOTS.map(zone => (
               <button
                 key={zone.id}

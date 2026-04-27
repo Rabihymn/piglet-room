@@ -38,7 +38,7 @@ async function fileExists(p) {
   }
 }
 
-async function optimizeOne(filePath) {
+async function optimizeOne(filePath, { force = false } = {}) {
   const rel = path.relative(PUBLIC_DIR, filePath)
   const img = sharp(filePath, { failOn: 'none' })
   const meta = await img.metadata()
@@ -50,7 +50,7 @@ async function optimizeOne(filePath) {
 
   for (const w of WIDTHS) {
     const target = outPathFor(filePath, w)
-    if (await fileExists(target)) {
+    if (!force && (await fileExists(target))) {
       skipped++
       continue
     }
@@ -79,27 +79,59 @@ async function runPool(items, worker, concurrency = 4) {
   return results
 }
 
-const args = new Set(process.argv.slice(2))
-const dryRun = args.has('--dry-run')
-const concurrencyArg = [...args].find(a => a.startsWith('--concurrency='))
+const argvRaw = process.argv.slice(2)
+const dryRun = argvRaw.includes('--dry-run')
+const force = argvRaw.includes('--force')
+const concurrencyArg = argvRaw.find(a => a.startsWith('--concurrency='))
 const concurrency = concurrencyArg ? Number(concurrencyArg.split('=')[1]) : 4
 
+/** Paths passed without `--` (relative to repo root or absolute), e.g. `public/the-room/room/plan.jpg` */
+const explicitPaths = argvRaw.filter(a => !a.startsWith('--') && !a.includes('='))
+
 async function main() {
-  const files = []
-  for await (const p of walk(PUBLIC_DIR)) {
-    if (ALREADY_OPT_RE.test(p)) continue
-    if (!IMAGE_EXT_RE.test(p)) continue
-    files.push(p)
+  let files = []
+
+  if (explicitPaths.length) {
+    for (const raw of explicitPaths) {
+      const abs = path.isAbsolute(raw) ? raw : path.join(ROOT, raw)
+      if (!abs.startsWith(PUBLIC_DIR)) {
+        console.error(`Skip (not under public/): ${raw}`)
+        continue
+      }
+      if (!IMAGE_EXT_RE.test(abs)) {
+        console.error(`Skip (not png/jpeg): ${raw}`)
+        continue
+      }
+      try {
+        await fs.access(abs)
+      } catch {
+        console.error(`Not found: ${raw}`)
+        continue
+      }
+      files.push(abs)
+    }
+    if (!files.length) {
+      console.error('No valid image paths to optimize.')
+      process.exit(1)
+    }
+  } else {
+    for await (const p of walk(PUBLIC_DIR)) {
+      if (ALREADY_OPT_RE.test(p)) continue
+      if (!IMAGE_EXT_RE.test(p)) continue
+      files.push(p)
+    }
   }
 
   if (dryRun) {
-    console.log(`Found ${files.length} images in public/`)
+    console.log(`Found ${files.length} image(s)`)
     process.exit(0)
   }
 
-  console.log(`Optimizing ${files.length} images → webp variants (${WIDTHS.join(', ')}w), concurrency=${concurrency}`)
+  console.log(
+    `Optimizing ${files.length} image(s) → webp variants (${WIDTHS.join(', ')}w), concurrency=${concurrency}${force ? ', force=true' : ''}`
+  )
 
-  const results = await runPool(files, optimizeOne, concurrency)
+  const results = await runPool(files, fp => optimizeOne(fp, { force }), concurrency)
 
   const totals = results.reduce(
     (acc, r) => {
