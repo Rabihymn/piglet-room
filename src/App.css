@@ -479,7 +479,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .newsletter-popup-title {
   font-family: var(--font-sans);
-  font-size: clamp(30px, 3vw, 42px);
+  font-size: clamp(30px, 2vw, 42px);
   font-weight: 800;
   line-height: 1.08;
   margin: 0 0 16px;
