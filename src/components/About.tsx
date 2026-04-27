@@ -59,14 +59,9 @@ export default function About() {
 
         <div className="about-image-stack">
           <picture>
-            <source
-              type="image/webp"
-              srcSet={IMAGE_WEBP_WIDTHS.map(w => `${withWebpVariant('/the-room/room/0.png', w)} ${w}w`).join(', ')}
-              sizes="(max-width: 900px) 100vw, 45vw"
-            />
             <img
               className="about-image-main"
-              src="/the-room/room/0.png"
+              src="/the-room/room/0.w768.webp"
               alt="Piglet Room interior"
               loading="eager"
               decoding="async"
