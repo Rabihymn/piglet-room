@@ -1,9 +1,11 @@
 import { useState, useEffect, useCallback } from 'react'
 import { IMAGE_WEBP_WIDTHS, withWebpVariant } from './ResponsiveImage'
 
-const LOGO_FULL_SRC = '/logo/logo final.png'
+// Use the optimized asset directly (smaller + faster decode than PNG)
+const LOGO_FULL_SRC = '/logo/logo final.w768.webp'
 const LOGO_PIG_SRC = '/logo/pig.png'
-const LOGO_FULL_WEBP_SRCSET = IMAGE_WEBP_WIDTHS.map(w => `${withWebpVariant(LOGO_FULL_SRC, w)} ${w}w`).join(', ')
+const LOGO_FULL_WEBP_SRCSET =
+  '/logo/logo final.w480.webp 480w, /logo/logo final.w768.webp 768w, /logo/logo final.w1200.webp 1200w, /logo/logo final.w1600.webp 1600w'
 const LOGO_PIG_WEBP_SRCSET = IMAGE_WEBP_WIDTHS.map(w => `${withWebpVariant(LOGO_PIG_SRC, w)} ${w}w`).join(', ')
 const LOGO_SIZES = '(max-width: 700px) 200px, 320px'
 
