@@ -329,20 +329,8 @@ export default function TheRoom() {
                 Sleeps two | 40 m² studio + 36 m² Seasonal Communal Terrace| King Size Bed
               </p>
               <p className="room-description">
-                Located on Gouraud Street in Gemmayze, The Piglet Room sits within the Cool
-                Convivium V building, just 4 minutes by car from downtown. Thoughtfully designed
-                with a warm, modern feel, the space features a comfortable king size bed with a
-                couch set in front of it, a fully equipped kitchen, and a round table dining area.
-              </p>
-              <p className="room-description">
-                The air-conditioned room also includes a flat-screen TV, en suite bathroom, and a
-                fully stocked minibar for your convenience.
-              </p>
-              <p className="room-description">
-                Guests have access to a shared outdoor terrace, an inviting space to relax and
-                socialize. Located in the same building as Ginette Café, you&apos;re steps away
-                from one of the area&apos;s most popular spots, with restaurants, bars, cafés, and
-                nightlife all within walking distance.
+            Designed as an open, easy-living studio.
+            Each area flows naturally into the next, creating a calm and functional stay experience. The above layout illustrates The Piglet Room’s general plan , a 40 sqm studio with access to a 36 sqm outdoor seasonal communal terrace open from mid-May to September.
               </p>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
@@ -380,9 +368,21 @@ export default function TheRoom() {
             <p className="room-description room-description-summary">
               Sleeps two | 40 sqm studio + 36 sqm Seasonal Communal Terrace| King Size Bed
             </p>
-            <p className="room-description">
-            Designed as an open, easy-living studio.
-            Each area flows naturally into the next, creating a calm and functional stay experience. The above layout illustrates The Piglet Room’s general plan , a 40 sqm studio with access to a 36 sqm outdoor seasonal communal terrace open from mid-May to September.
+              <p className="room-description">
+                Located on Gouraud Street in Gemmayze, The Piglet Room sits within the Cool
+                Convivium V building, just 4 minutes by car from downtown. Thoughtfully designed
+                with a warm, modern feel, the space features a comfortable king size bed with a
+                couch set in front of it, a fully equipped kitchen, and a round table dining area.
+              </p>
+              <p className="room-description">
+                The air-conditioned room also includes a flat-screen TV, en suite bathroom, and a
+                fully stocked minibar for your convenience.
+              </p>
+              <p className="room-description">
+                Guests have access to a shared outdoor terrace, an inviting space to relax and
+                socialize. Located in the same building as Ginette Café, you&apos;re steps away
+                from one of the area&apos;s most popular spots, with restaurants, bars, cafés, and
+                nightlife all within walking distance.
               </p>
           </div>
           <a
