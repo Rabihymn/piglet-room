@@ -315,7 +315,7 @@ export default function TheRoom() {
               </p>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
-              <a href="https://www.airbnb.com/hosting/listings" target="_blank" rel="noopener noreferrer" className="btn-dark">
+              <a href="https://www.airbnb.com/h/pigletroom" target="_blank" rel="noopener noreferrer" className="btn-dark">
                 Book on Airbnb
               </a>
               <p style={{ fontSize: '13px', color: 'var(--gray-text)' }}>
@@ -356,7 +356,7 @@ export default function TheRoom() {
               </p>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
-              <a href="https://www.airbnb.com/hosting/listings" target="_blank" rel="noopener noreferrer" className="btn-dark">
+              <a href="https://www.airbnb.com/h/pigletroom" target="_blank" rel="noopener noreferrer" className="btn-dark">
                 Book on Airbnb
               </a>
               <p style={{ fontSize: '13px', color: 'var(--gray-text)' }}>
@@ -390,7 +390,7 @@ export default function TheRoom() {
               Layered with character, the walls are accented with carefully selected artwork, bringing texture and a collected, lived-in feel. Altogether, the space feels cozy, grounding, and quietly refined, a place to slow down and unwind.
             </p>
           </div>
-          <a href="https://www.airbnb.com/hosting/listings" target="_blank" rel="noopener noreferrer" className="btn-dark">
+          <a href="https://www.airbnb.com/h/pigletroom" target="_blank" rel="noopener noreferrer" className="btn-dark">
             Book on Airbnb
           </a>
         </div>
@@ -410,7 +410,7 @@ export default function TheRoom() {
             </p>
             <p className="room-description"><em>A blend of practicality and little luxuries that make all the difference.</em></p>
           </div>
-          <a href="https://www.airbnb.com/hosting/listings" target="_blank" rel="noopener noreferrer" className="btn-dark">
+          <a href="https://www.airbnb.com/h/pigletroom" target="_blank" rel="noopener noreferrer" className="btn-dark">
             Book on Airbnb
           </a>
         </div>
@@ -462,7 +462,7 @@ export default function TheRoom() {
               </p>
             )}
           </div>
-          <a href="https://www.airbnb.com/hosting/listings" target="_blank" rel="noopener noreferrer" className="btn-dark">
+          <a href="https://www.airbnb.com/h/pigletroom" target="_blank" rel="noopener noreferrer" className="btn-dark">
             Book on Airbnb
           </a>
         </div>

@@ -7,7 +7,7 @@ import NewsletterCard from './NewsletterCard'
 
 const SLIDES = ['/home/1.png', '/home/2.png', '/home/3.png', '/home/5.png']
 
-const POPUP_DELAY_MS = 2000
+const POPUP_DELAY_MS = 5000
 
 export default function Home() {
   const [current, setCurrent] = useState(0)
@@ -97,7 +97,7 @@ export default function Home() {
           </p>
           <div className="hero-cta">
             <a
-              href="https://www.airbnb.com/hosting/listings"
+              href="https://www.airbnb.com/h/pigletroom"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-dark"
